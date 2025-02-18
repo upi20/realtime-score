@@ -62,7 +62,8 @@
                 team2_name: $('#team2_name').val(),
                 sport: $('#sport').val()
             }, function(response) {
-                $('body').append(`<div class="alert alert-success alert-dismissible fade show" role="alert">${response.message}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`);
+                setTimeout(() => { $(`#notif-${idClose}`).click(); }, 10000);
+                $('body').append(`<div class="alert alert-success alert-dismissible fade show" role="alert">${response.message}<button id="notif-${idClose}" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`);
                 loadMatches();
             });
         });
@@ -72,7 +73,7 @@
                 let cards = '';
                 response.data.forEach(match => {
                     cards += `<div class="col-md-4">
-                        <div class="card">
+                        <div class="card border-0 shadow-sm">
                             <div class="card-body">
                                 <h5 class="card-title">${match.team1_name} vs ${match.team2_name}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">${match.sport}</h6>
@@ -123,7 +124,9 @@
                 team1_score: team1_score,
                 team2_score: team2_score
             }, function(response) {
-                $('body').append(`<div class="alert alert-success alert-dismissible fade show" role="alert">${response.message}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`);
+                const idClose = Math.floor(Date.now() / 1000);
+                setTimeout(() => { $(`#notif-${idClose}`).click(); }, 10000);
+                $('body').append(`<div class="alert alert-success alert-dismissible fade show" role="alert">${response.message}<button id="notif-${idClose}" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`);
                 loadMatches();
             });
         });
@@ -133,7 +136,8 @@
             $.post(`/operator/matches/${id}/finish`, {
                 _token: csrfToken
             }, function(response) {
-                $('body').append(`<div class="alert alert-success alert-dismissible fade show" role="alert">${response.message}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`);
+                setTimeout(() => { $(`#notif-${idClose}`).click(); }, 10000);
+                $('body').append(`<div class="alert alert-success alert-dismissible fade show" role="alert">${response.message}<button id="notif-${idClose}" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`);
                 loadMatches();
             });
         });

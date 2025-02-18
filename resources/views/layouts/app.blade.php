@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="bg-light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +9,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     @yield('styles')
 </head>
-<body class="container mt-4">
+<body class="container mt-4 bg-light">
 
-    <div class="content mb-3">
+    <div class="content mb-3 bg-light">
         @yield('content')
     </div>
 
