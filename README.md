@@ -48,3 +48,4 @@ php artisan serve
 
 Proyek sekarang sudah berjalan. Selamat coding!
 
+![Penggunaan aplikasi](./contoh.png "Contoh penggunaan")
