@@ -188,7 +188,7 @@ class OperatorController extends Controller
         }
 
         $match->update(['status' => 'finished']);
-
+        $this->updateScoreRaealTimeDisplay();
         return response()->json([
             'status' => 200,
             'message' => 'Match has been finished',
