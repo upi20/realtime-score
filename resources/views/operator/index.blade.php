@@ -62,6 +62,7 @@
                 team2_name: $('#team2_name').val(),
                 sport: $('#sport').val()
             }, function(response) {
+                const idClose = Math.floor(Date.now() / 1000);
                 setTimeout(() => { $(`#notif-${idClose}`).click(); }, 10000);
                 $('body').append(`<div class="alert alert-success alert-dismissible fade show" role="alert">${response.message}<button id="notif-${idClose}" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`);
                 loadMatches();
@@ -136,6 +137,7 @@
             $.post(`/operator/matches/${id}/finish`, {
                 _token: csrfToken
             }, function(response) {
+                const idClose = Math.floor(Date.now() / 1000);
                 setTimeout(() => { $(`#notif-${idClose}`).click(); }, 10000);
                 $('body').append(`<div class="alert alert-success alert-dismissible fade show" role="alert">${response.message}<button id="notif-${idClose}" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`);
                 loadMatches();
