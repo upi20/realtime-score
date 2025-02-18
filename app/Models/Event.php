@@ -10,10 +10,10 @@ class Event extends Model
     use HasFactory;
 
     protected $table = 'events';
-    protected $fillable = ['match_id', 'scoring_team', 'point_type', 'points'];
+    protected $fillable = ['game_match_id', 'scoring_team', 'point_type', 'points'];
 
     public function gameMatch()
     {
-        return $this->belongsTo(GameMatch::class, 'match_id');
+        return $this->belongsTo(GameMatch::class, 'game_match_id', 'id');
     }
 }

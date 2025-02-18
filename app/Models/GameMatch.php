@@ -14,11 +14,11 @@ class GameMatch extends Model
 
     public function scores()
     {
-        return $this->hasOne(Score::class);
+        return $this->hasOne(Score::class, 'game_match_id', 'id');
     }
 
     public function events()
     {
-        return $this->hasMany(Event::class);
+        return $this->hasMany(Event::class, 'game_match_id', 'id');
     }
 }

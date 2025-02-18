@@ -11,7 +11,7 @@ return new class extends Migration {
     {
         Schema::create((new Event)->getTable(), function (Blueprint $table) {
             $table->id();
-            $table->foreignId('match_id')->constrained((new GameMatch())->getTable())->onDelete('cascade');
+            $table->foreignId('game_match_id')->constrained((new GameMatch())->getTable())->onDelete('cascade');
             $table->enum('scoring_team', ['team1', 'team2']);
             $table->string('point_type');
             $table->integer('points');

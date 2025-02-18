@@ -14,7 +14,7 @@ class ScoreSeeder extends Seeder
 
         foreach ($matches as $match) {
             Score::create([
-                'match_id' => $match->id,
+                'game_match_id' => $match->id,
                 'team1_score' => rand(0, 5), // Skor acak
                 'team2_score' => rand(0, 5),
             ]);

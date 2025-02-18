@@ -11,7 +11,7 @@ return new class extends Migration {
     {
         Schema::create((new Score)->getTable(), function (Blueprint $table) {
             $table->id();
-            $table->foreignId('match_id')->constrained((new GameMatch())->getTable())->onDelete('cascade');
+            $table->foreignId('game_match_id')->constrained((new GameMatch())->getTable())->onDelete('cascade');
             $table->integer('team1_score')->default(0);
             $table->integer('team2_score')->default(0);
             $table->timestamps();

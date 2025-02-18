@@ -15,7 +15,7 @@ class EventSeeder extends Seeder
         foreach ($matches as $match) {
             Event::insert([
                 [
-                    'match_id' => $match->id,
+                    'game_match_id' => $match->id,
                     'scoring_team' => 'team1',
                     'point_type' => 'goal',
                     'points' => 1,
@@ -23,7 +23,7 @@ class EventSeeder extends Seeder
                     'updated_at' => now(),
                 ],
                 [
-                    'match_id' => $match->id,
+                    'game_match_id' => $match->id,
                     'scoring_team' => 'team2',
                     'point_type' => 'penalty',
                     'points' => 1,
