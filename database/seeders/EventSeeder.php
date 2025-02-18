@@ -13,12 +13,13 @@ class EventSeeder extends Seeder
         $matches = GameMatch::all();
 
         foreach ($matches as $match) {
+            $match->load(['scores']);
             Event::insert([
                 [
                     'game_match_id' => $match->id,
                     'scoring_team' => 'team1',
                     'point_type' => 'goal',
-                    'points' => 1,
+                    'points' => $match->scores->team1_score,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
@@ -26,7 +27,7 @@ class EventSeeder extends Seeder
                     'game_match_id' => $match->id,
                     'scoring_team' => 'team2',
                     'point_type' => 'penalty',
-                    'points' => 1,
+                    'points' => $match->scores->team2_score,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
