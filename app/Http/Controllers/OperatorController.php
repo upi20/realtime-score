@@ -16,11 +16,20 @@ class OperatorController extends Controller
         return view('operator.index');
     }
 
-    public function getMatches()
+    public function getMatches($webChannel = false)
     {
         $matches = GameMatch::with('scores')
             ->where('status', 'ongoing')
-            ->get();
+            ->orderBy('created_at', 'desc')
+            ->get()->map(function ($match) {
+                $match->class = $match->sport == 'sepakbola' ? 'bg-primary' : ($match->sport == 'basket' ? 'bg-success' : 'bg-warning');
+                $match->class_text = $match->sport == 'sepakbola' ? 'text-white' : ($match->sport == 'basket' ? 'text-white' : 'text-dark');
+                $match->text = $match->sport == 'sepakbola' ? 'Sepak Bola' : ($match->sport == 'basket' ? 'Basket' : 'Voli');
+                return $match;
+            });
+        if($webChannel){
+            return $matches;
+        }
         return response()->json([
             'status' => 200,
             'data' => $matches,
@@ -70,6 +79,9 @@ class OperatorController extends Controller
             $score->save();
 
             DB::commit();
+
+            // update realtime display
+            $this->updateScoreRaealTimeDisplay();
 
             return response()->json([
                 'status' => 200,
@@ -146,7 +158,8 @@ class OperatorController extends Controller
             }
 
             DB::commit();
-
+            // update realtime display
+            $this->updateScoreRaealTimeDisplay();
             return response()->json([
                 'status' => 200,
                 'message' => 'Score updated successfully',
@@ -204,5 +217,22 @@ class OperatorController extends Controller
             'status' => 200,
             'data' => $events,
         ]);
+    }
+
+    private function updateScoreRaealTimeDisplay()
+    {
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+        $pusher = new \Pusher\Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        $data = $this->getMatches(true);
+        $pusher->trigger('live-score', 'change-score', $data);
     }
 }
